@@ -1,0 +1,27 @@
+[book]
+title = "RISC-V Field Guide"
+authors = ["Jim 'akses' Burger"]
+description = "A searchable, programmer-first RISC-V instruction reference with an x86 migration guide."
+language = "en"
+src = "src"
+
+[build]
+build-dir = "book"
+
+[output.html]
+default-theme = "navy"
+preferred-dark-theme = "navy"
+git-repository-url = "https://codeberg.org/akses/riscv-field-guide"
+edit-url-template = "https://codeberg.org/akses/edit/main/{path}"
+additional-css = ["theme/riscv.css"]
+
+[output.html.search]
+enable = true
+limit-results = 30
+use-boolean-and = true
+boost-title = 3
+boost-hierarchy = 2
+boost-paragraph = 1
+expand = true
+heading-split-level = 2
+
