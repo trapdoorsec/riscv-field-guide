@@ -29,7 +29,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme/riscv-b9ea6fae.css">
+        <link rel="stylesheet" href="theme/riscv-40df2dec.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "navy";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-5c99f9bf.js";
+            window.path_to_searchindex_js = "searchindex-7b8ef736.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-0e639995.js"></script>
+        <script src="toc-65334695.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -184,7 +184,7 @@
   
 <div class="landing-content">
     
-<h1 class="landing-title">RISC-V Field Guide</h1>
+<h1 class="landing-title">The RISC-V Field Guide</h1>
 
     <form id="landing-search-form" class="landing-search" role="search">
       <svg class="landing-search-icon" width="20" height="20" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -203,14 +203,14 @@
     </div>
 
     
-<p class="landing-note">A searchable RISC-V assembly instruction reference &amp; x86 migration guide — <a href="#how-to-read-an-instruction-page" class="landing-link">Using this book</a> | <a href="what-is-this.html" class="landing-link">About this book</a></p>
+<p class="landing-note">A searchable RISC-V assembly instruction reference &amp; x86 migration guide — <a href="#how-to-read-an-instruction" class="landing-link">Using this book</a> | <a href="what-is-this.html" class="landing-link">About this book</a></p>
 
   </div>
 
 </div>
 
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="how-to-read-an-instruction-page"><a class="header" href="#how-to-read-an-instruction-page">How to read an instruction page</a></h1>
+<h1 id="how-to-read-an-instruction"><a class="header" href="#how-to-read-an-instruction">How to read an instruction</a></h1>
 <p>RISC-V conventionally writes the destination first:</p>
 <pre><code class="language-text">instruction destination, source1, source2
 add         rd,          rs1,     rs2
@@ -240,6 +240,8 @@ add         rd,          rs1,     rs2
 </ul>
 <h2 id="incantations"><a class="header" href="#incantations">Incantations</a></h2>
 <p>Assembly programming isn’t for the faint of hart (pun intended). Explore the <a href="#incantations-1">incantations</a> to reveal the deepest secrets of the RISC-V specification.</p>
+<h2 id="rituals"><a class="header" href="#rituals">Rituals</a></h2>
+<p>We learn best when we learn by doing. Perform the <a href="#about-the-rituals">rituals</a> regularly and you will turn what starts as a passing familiarity, into a deep understanding, a memory.</p>
 <h2 id="use-of-ai-declaration"><a class="header" href="#use-of-ai-declaration">Use of AI Declaration</a></h2>
 <p>Because I am but one human, and the breadth of knowledge hidden in the RISC-V specifications is vast, I have used AI to assist me in building this site. That doesn’t mean that I auto-generated every line though. I have written this entire page, for example, and there are plenty of areas where I have taken the time to explain things, human to human.</p>
 <p>As a result, some of the content could be misleading or outright incorrect. If you spot something, please let me know via a GH issue and I promise I will do my best to address it.</p>
@@ -394,6 +396,186 @@ sltiu rd, rs, 1         # rd = (rs &lt; 1) — equivalent to seqz (rs == 0)
 </tbody>
 </table>
 </div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="about-the-rituals"><a class="header" href="#about-the-rituals">About the rituals</a></h1>
+<div class="ritual-marker ritual-intro"></div>
+
+<p>These rituals will serve you well on your journey to programming in assembly for RISC-V platforms. Perform them regularly for best effect, for example, pick one or two per day before you start a coding session. Explore different ways of achieving the same thing.</p>
+<p>Each ritual begins with a goal that is grounded in the harsh realities of low level programming. Each time you solve one, you make important connections and learn important skills.</p>
+<h2 id="why-perform-these-dark-arts"><a class="header" href="#why-perform-these-dark-arts">Why perform these dark arts?</a></h2>
+<p>While it is true we are now in an era when machines can write their own code, by practicing programming by hand you are training your brain to know what you want. You want mastery over the machine, not dependency. While a carpenter benefits from their power tools, they still need to learn the intrinsic properties of the wood which they build from. This is the same for a programmer using an LLM. Machines are great assistants, but terrible masters.</p>
+<p>Doing so enables several positive outcomes:</p>
+<ol>
+<li>You will be more likely to understand what you are asking for when you ask an LLM for assistance.</li>
+<li>You will be more likely to notice when a machine learning system has misled you.</li>
+</ol>
+<p>Try to complete each ritual before revealing its solution. Then close the solution and perform it again from memory.</p>
+<p><a href="#ritual-i-hello-world">Begin the rituals</a>.</p>
+<nav class="ritual-nav" aria-label="Ritual navigation">
+  <span class="ritual-nav-disabled" aria-disabled="true">← Previous</span>
+  <span class="ritual-nav-position">Introduction</span>
+  <a href="#ritual-i-hello-world" rel="next">Next →</a>
+</nav>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ritual-i-hello-world"><a href="#ritual-i-hello-world" class="header">Ritual I: Hello World</a></h1>
+<div class="ritual-marker ritual-entry">
+  
+<h1>Ritual I: Hello World</h1>
+
+  
+<div class="ritual-brief">
+    
+<p class="ritual-verse">Words wait in silence.<br>The kernel carries their voice.<br>Return without trace.</p>
+
+    
+<p>Write an RV64 Linux program that prints <code>Hello, RISC-V!</code> followed by a newline, then exits successfully.</p>
+
+    
+<p class="ritual-hint">Begin at <code>_start</code>. Use only Linux <code>write</code> and <code>exit</code> system calls—no C library.</p>
+
+  </div>
+
+  <details class="ritual-solution">
+    <summary>Reveal solution</summary>
+    
+<div class="ritual-solution-content">
+      
+<pre><code class="language-asm">.section .rodata
+message:
+    .ascii "Hello, RISC-V!\n"
+.equ message_len, . - message
+.section .text
+.globl _start
+_start:
+    li      a0, 1
+    la      a1, message
+    li      a2, message_len
+    li      a7, 64
+    ecall
+    li      a0, 0
+    li      a7, 93
+    ecall</code></pre>
+
+      
+<p><code>write</code> receives the file descriptor, address, and length in <code>a0</code>–<code>a2</code>. The syscall number goes in <code>a7</code>. The second <code>ecall</code> exits with status zero.</p>
+
+    </div>
+
+  </details>
+  <nav class="ritual-nav" aria-label="Ritual navigation">
+    <a href="#about-the-rituals" rel="prev">← Previous</a>
+    <span class="ritual-nav-position">0x00</span>
+    <a href="#ritual-ii-sum-an-array" rel="next">Next →</a>
+  </nav>
+</div>
+
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ritual-ii-sum-an-array"><a href="#ritual-ii-sum-an-array" class="header">Ritual II: Sum an array</a></h1>
+<div class="ritual-marker ritual-entry">
+  
+<h1>Ritual II: Sum an Array</h1>
+
+  
+<div class="ritual-brief">
+    
+<p class="ritual-verse">Eight bytes mark each step.<br>A dwindling count guides the path.<br>One register remains.</p>
+
+    
+<p>Write an RV64 function named <code>sum</code>. It receives the address of an array of 64-bit integers in <code>a0</code> and its element count in <code>a1</code>. Return their wrapping sum in <code>a0</code>.</p>
+
+    
+<p class="ritual-hint">An empty array must return zero. Use only caller-saved registers and do not modify memory.</p>
+
+  </div>
+
+  <details class="ritual-solution">
+    <summary>Reveal solution</summary>
+    
+<div class="ritual-solution-content">
+      
+<pre><code class="language-asm">.globl sum
+sum:
+    mv      t0, a0
+    mv      t1, a1
+    li      a0, 0
+.Lsum_loop:
+    beqz    t1, .Lsum_done
+    ld      t2, 0(t0)
+    add     a0, a0, t2
+    addi    t0, t0, 8
+    addi    t1, t1, -1
+    j       .Lsum_loop
+.Lsum_done:
+    ret</code></pre>
+
+      
+<p><code>t0</code> walks through memory while <code>t1</code> counts down. Initializing <code>a0</code> before the loop handles an empty array and leaves the result in the return register.</p>
+
+    </div>
+
+  </details>
+  <nav class="ritual-nav" aria-label="Ritual navigation">
+    <a href="#ritual-i-hello-world" rel="prev">← Previous</a>
+    <span class="ritual-nav-position">0x01</span>
+    <a href="#ritual-iii-change-the-case" rel="next">Next →</a>
+  </nav>
+</div>
+
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="ritual-iii-change-the-case"><a href="#ritual-iii-change-the-case" class="header">Ritual III: Change the case</a></h1>
+<div class="ritual-marker ritual-entry">
+  
+<h1>Ritual III: Change the Case</h1>
+
+  
+<div class="ritual-brief">
+    
+<p class="ritual-verse">Read until nothing.<br>Only the small letters change.<br>The path stays the same.</p>
+
+    
+<p>Write an RV64 function named <code>uppercase</code>. It receives a pointer to a null-terminated ASCII string in <code>a0</code> and converts each lowercase letter to uppercase in place.</p>
+
+    
+<p class="ritual-hint">Leave every other byte unchanged. Return the original pointer in <code>a0</code>.</p>
+
+  </div>
+
+  <details class="ritual-solution">
+    <summary>Reveal solution</summary>
+    
+<div class="ritual-solution-content">
+      
+<pre><code class="language-asm">.globl uppercase
+uppercase:
+    mv      t0, a0
+.Lcase_loop:
+    lbu     t1, 0(t0)
+    beqz    t1, .Lcase_done
+    li      t2, 97
+    bltu    t1, t2, .Lcase_next
+    li      t2, 123
+    bgeu    t1, t2, .Lcase_next
+    addi    t1, t1, -32
+    sb      t1, 0(t0)
+.Lcase_next:
+    addi    t0, t0, 1
+    j       .Lcase_loop
+.Lcase_done:
+    ret</code></pre>
+
+      
+<p>The half-open range <code>[97, 123)</code> selects lowercase ASCII. Subtracting 32 produces the corresponding uppercase byte. Because only <code>t0</code> advances, <code>a0</code> still holds the original address.</p>
+
+    </div>
+
+  </details>
+  <nav class="ritual-nav" aria-label="Ritual navigation">
+    <a href="#ritual-ii-sum-an-array" rel="prev">← Previous</a>
+    <span class="ritual-nav-position">0x02</span>
+    <span class="ritual-nav-disabled" aria-disabled="true">Next →</span>
+  </nav>
+</div>
+
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="incantations-1"><a class="header" href="#incantations-1">Incantations</a></h1>
 <div class="incantation-marker incantation-intro"></div>
@@ -1794,7 +1976,7 @@ rather than repeated here.</p>
         <script src="book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="theme/landing-search-9e9f91d4.js"></script>
+        <script src="theme/landing-search-0159e17a.js"></script>
 
         <script>
         window.addEventListener('load', function() {

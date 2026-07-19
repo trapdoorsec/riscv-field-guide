@@ -21,6 +21,10 @@ For your convenience, this entire site is searchable via the magnifying glass at
 
 Assembly programming isn't for the faint of hart (pun intended). Explore the [incantations](incantations/index.md) to reveal the deepest secrets of the RISC-V specification.
 
+## Rituals
+
+We learn best when we learn by doing. Perform the [rituals](rituals/index.md) regularly and you will turn what starts as a passing familiarity, into a deep understanding, a memory.
+
 
 ## Use of AI Declaration
 

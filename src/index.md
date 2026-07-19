@@ -1,6 +1,6 @@
 <div id="landing-page">
   <div class="landing-content">
-    <h1 class="landing-title">RISC-V Field Guide</h1>
+    <h1 class="landing-title">The RISC-V Field Guide</h1>
     <form id="landing-search-form" class="landing-search" role="search">
       <svg class="landing-search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
         <circle cx="11" cy="11" r="8"></circle>

@@ -7,6 +7,13 @@
 - [Signedness and width guide](signedness.md)
 - [Registers and ABI names](registers.md)
 
+# Rituals
+
+- [About the rituals](rituals/index.md)
+- [Ritual I: Hello World](rituals/0x00-hello-world.md)
+- [Ritual II: Sum an array](rituals/0x01-sum-array.md)
+- [Ritual III: Change the case](rituals/0x02-change-case.md)
+
 # Incantations
 
 - [About the incantations](incantations/index.md)

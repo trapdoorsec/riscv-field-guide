@@ -1,6 +1,6 @@
 (function () {
-  var incantationNav = document.querySelector('.incantation-nav');
-  if (incantationNav) {
+  var sequenceNav = document.querySelector('.incantation-nav, .ritual-nav');
+  if (sequenceNav) {
     document.addEventListener('keydown', function (event) {
       if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey ||
           /^(?:input|select|textarea)$/i.test(event.target.nodeName)) return;
@@ -12,7 +12,7 @@
       event.preventDefault();
       event.stopImmediatePropagation();
 
-      var destination = incantationNav.querySelector('a[rel="' + direction + '"]');
+      var destination = sequenceNav.querySelector('a[rel="' + direction + '"]');
       if (destination) window.location.assign(destination.href);
     }, true);
   }

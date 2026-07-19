@@ -1,4 +1,4 @@
-# How to read an instruction page
+# How to read an instruction
 
 RISC-V conventionally writes the destination first:
 
