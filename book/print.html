@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "navy";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-5f13d8e9.js";
+            window.path_to_searchindex_js = "searchindex-5c99f9bf.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-ad188195.js"></script>
+        <script src="toc-0e639995.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -203,7 +203,7 @@
     </div>
 
     
-<p class="landing-note">A searchable instruction reference &amp; x86 migration guide — <a href="#how-to-read-an-instruction-page" class="landing-link">Full guide</a></p>
+<p class="landing-note">A searchable RISC-V assembly instruction reference &amp; x86 migration guide — <a href="#how-to-read-an-instruction-page" class="landing-link">Using this book</a> | <a href="what-is-this.html" class="landing-link">About this book</a></p>
 
   </div>
 
@@ -225,6 +225,88 @@ add         rd,          rs1,     rs2
 </ul>
 <h2 id="a-word-on-pseudoinstructions"><a class="header" href="#a-word-on-pseudoinstructions">A word on pseudoinstructions</a></h2>
 <p>The assembler instruction <code>mv a0, a1</code> is convenient syntax, not a distinct machine instruction. It normally becomes <code>addi a0, a1, 0</code>. Search results include pseudoinstructions because programmers encounter both forms.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="about-the-risc-v-field-guide"><a class="header" href="#about-the-risc-v-field-guide">About the RISC-V Field Guide</a></h1>
+<p>Welcome to the RISC-V Field Guide, a searchable reference manual and learning resource for RISC-V assembly <del>arcanists</del> programmers. It is curated with love by me, Jim aka ‘akses’. Thanks for spending your time here.</p>
+<p>My intent for this guide is to provide a reasonably accurate, useful, sampling of the important parts of the RISC-V specification, for programmers, by a programmer. I do not intend this site to be an authoritative source, however.</p>
+<p>At times, you will want to refer to the resources in the <a href="#sources-and-further-reading">References</a> section, particularly if you need reference a source of truth.</p>
+<h2 id="coverage"><a class="header" href="#coverage">Coverage</a></h2>
+<p>At this time I’m working on covering the base instructions for RV32 and RV64 and common pseudointructions.</p>
+<h2 id="instruction-references"><a class="header" href="#instruction-references">Instruction References</a></h2>
+<p>For your convenience, this entire site is searchable via the magnifying glass at the top of the page. The most useful part of this site are the instruction reference sections that should give you a simple lookup for any instructions you are looking at.</p>
+<ul>
+<li><a href="instructions/index.html">Instructions</a></li>
+<li><a href="pseudointructions/index.html">Psuedoinstructions</a></li>
+</ul>
+<h2 id="incantations"><a class="header" href="#incantations">Incantations</a></h2>
+<p>Assembly programming isn’t for the faint of hart (pun intended). Explore the <a href="#incantations-1">incantations</a> to reveal the deepest secrets of the RISC-V specification.</p>
+<h2 id="use-of-ai-declaration"><a class="header" href="#use-of-ai-declaration">Use of AI Declaration</a></h2>
+<p>Because I am but one human, and the breadth of knowledge hidden in the RISC-V specifications is vast, I have used AI to assist me in building this site. That doesn’t mean that I auto-generated every line though. I have written this entire page, for example, and there are plenty of areas where I have taken the time to explain things, human to human.</p>
+<p>As a result, some of the content could be misleading or outright incorrect. If you spot something, please let me know via a GH issue and I promise I will do my best to address it.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="getting-started"><a class="header" href="#getting-started">Getting started</a></h1>
+<p>This gets a small RISC-V assembly program running on your current computer. You
+do not need RISC-V hardware.</p>
+<h2 id="1-install-the-tools"><a class="header" href="#1-install-the-tools">1. Install the tools</a></h2>
+<p>Choose your operating system.</p>
+<h3 id="linux-ubuntu-or-debian"><a class="header" href="#linux-ubuntu-or-debian">Linux (Ubuntu or Debian)</a></h3>
+<p>Open a terminal:</p>
+<pre><code class="language-sh">sudo apt update
+sudo apt install gcc-riscv64-linux-gnu qemu-user
+</code></pre>
+<h3 id="windows"><a class="header" href="#windows">Windows</a></h3>
+<p>Open PowerShell as Administrator and <a href="https://learn.microsoft.com/windows/wsl/install">install WSL</a>:</p>
+<pre><code class="language-powershell">wsl --install
+</code></pre>
+<p>Restart Windows, open <strong>Ubuntu</strong>, then run:</p>
+<pre><code class="language-sh">sudo apt update
+sudo apt install gcc-riscv64-linux-gnu qemu-user
+</code></pre>
+<h3 id="macos"><a class="header" href="#macos">macOS</a></h3>
+<p>Install <a href="https://docs.docker.com/desktop/setup/install/mac-install/">Docker Desktop</a>.
+Open Terminal in the directory where you want to work, then run:</p>
+<pre><code class="language-sh">docker run --rm -it -v "$PWD":/work -w /work ubuntu:24.04 bash
+apt update
+apt install -y gcc-riscv64-linux-gnu qemu-user
+</code></pre>
+<p>Keep this container terminal open for the remaining steps.</p>
+<h2 id="2-write-hello-world"><a class="header" href="#2-write-hello-world">2. Write Hello World</a></h2>
+<p>Create a file named <code>hello.s</code>:</p>
+<pre><code class="language-asm">.section .rodata
+message:
+    .ascii "Hello, RISC-V!\n"
+.equ message_len, . - message
+
+.section .text
+.globl _start
+_start:
+    li a0, 1
+    la a1, message
+    li a2, message_len
+    li a7, 64
+    ecall
+
+    li a0, 0
+    li a7, 93
+    ecall
+</code></pre>
+<h2 id="3-build-and-run-it"><a class="header" href="#3-build-and-run-it">3. Build and run it</a></h2>
+<p>Run these commands in the directory containing <code>hello.s</code>:</p>
+<pre><code class="language-sh">riscv64-linux-gnu-gcc -nostdlib -static -o hello hello.s
+qemu-riscv64 ./hello
+</code></pre>
+<p>You should see:</p>
+<pre><code class="language-text">Hello, RISC-V!
+</code></pre>
+<h2 id="4-change-it"><a class="header" href="#4-change-it">4. Change it</a></h2>
+<p>Edit the text inside <code>.ascii</code>, then build and run the program again.</p>
+<p>Useful next pages:</p>
+<ul>
+<li><a href="#registers-and-abi-names">Registers and ABI names</a></li>
+<li><a href="#li--load-an-integer-constant"><code>li</code> — load an integer constant</a></li>
+<li><a href="#la-lla-and-lga--load-a-symbol-address"><code>la</code> — load an address</a></li>
+<li><a href="#ecall--ebreak"><code>ECALL</code> — ask the environment for a service</a></li>
+</ul>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="signedness-and-width-guide"><a class="header" href="#signedness-and-width-guide">Signedness and width guide</a></h1>
 <p>RISC-V does not consistently encode signedness in mnemonics. Some operations have separate signed and unsigned forms; others use the same instruction regardless of interpretation. This page is a quick-reference for which is which.</p>
@@ -313,7 +395,7 @@ sltiu rd, rs, 1         # rd = (rs &lt; 1) — equivalent to seqz (rs == 0)
 </table>
 </div>
 <div style="break-before: page; page-break-before: always;"></div>
-<h1 id="incantations"><a class="header" href="#incantations">Incantations</a></h1>
+<h1 id="incantations-1"><a class="header" href="#incantations-1">Incantations</a></h1>
 <div class="incantation-marker incantation-intro"></div>
 
 <p>This section is inspired by the puzzle-box spirit of xorpd’s brilliant <a href="https://www.xorpd.net/pages/xchg_rax/snip_00.html"><em>xchg rax,rax</em></a>.</p>
@@ -353,7 +435,7 @@ rem     t0, x0, t1</code></pre>
   </div>
 
   <nav class="incantation-nav" aria-label="Incantation navigation">
-    <a href="#incantations" rel="prev">← Previous</a>
+    <a href="#incantations-1" rel="prev">← Previous</a>
     <span class="incantation-nav-position">0x00</span>
     <a href="#incantation-ii" rel="next">Next →</a>
   </nav>
@@ -1577,6 +1659,55 @@ addi sp, sp, 8
 </table>
 </div>
 <p>Related: <a href="#what-deliberately-has-no-direct-equivalent">What deliberately has no direct equivalent</a>, <a href="#pseudoinstructions">Pseudoinstructions</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="glossary-of-acronyms-and-terms"><a class="header" href="#glossary-of-acronyms-and-terms">Glossary of acronyms and terms</a></h1>
+<p>This glossary expands abbreviations used throughout the guide. Instruction
+mnemonics such as <code>ADDI</code> and <code>JALR</code> are documented on their instruction pages
+rather than repeated here.</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Term</th><th>Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>ABI</strong></td><td><strong>Application Binary Interface.</strong> Conventions that let separately built code interoperate, including register use, argument passing, stack layout, and object-file details. See <a href="#registers-and-abi-names">registers and ABI names</a>.</td></tr>
+<tr><td><strong>ALU</strong></td><td><strong>Arithmetic Logic Unit.</strong> The part of a processor that performs integer arithmetic, comparisons, shifts, and bitwise operations.</td></tr>
+<tr><td><strong>CSR</strong></td><td><strong>Control and Status Register.</strong> A register in RISC-V’s separate 12-bit CSR address space, accessed with Zicsr instructions. See <a href="#csrrw-csrrs-csrrc--csr-access">CSR access</a>.</td></tr>
+<tr><td><strong>EEI</strong></td><td><strong>Execution Environment Interface.</strong> The contract between software and the environment that runs it, defining matters such as traps, memory behavior, and the meaning of environment calls.</td></tr>
+<tr><td><strong>ELF</strong></td><td><strong>Executable and Linkable Format.</strong> The common object-file, executable, and shared-library format used by RISC-V Unix-like toolchains.</td></tr>
+<tr><td><strong>GOT</strong></td><td><strong>Global Offset Table.</strong> A linker-managed table used to obtain addresses of global symbols, especially in position-independent code. See <a href="#la-lla-and-lga--load-a-symbol-address"><code>la</code>, <code>lla</code>, and <code>lga</code></a>.</td></tr>
+<tr><td><strong>GPR</strong></td><td><strong>General-Purpose Register.</strong> One of the integer registers <code>x0</code>–<code>x31</code> in the standard base ISA.</td></tr>
+<tr><td><strong>IPI</strong></td><td><strong>Interprocessor Interrupt.</strong> A notification sent from one hart to another, commonly used by operating systems for cross-hart coordination.</td></tr>
+<tr><td><strong>ISA</strong></td><td><strong>Instruction Set Architecture.</strong> The programmer-visible contract implemented by a processor: instructions, registers, exceptions, memory rules, and related architectural behavior.</td></tr>
+<tr><td><strong>MIE</strong></td><td><strong>Machine Interrupt Enable.</strong> Depending on context, the global M-mode interrupt-enable bit in <code>mstatus</code>, or the <code>mie</code> CSR that enables individual machine interrupt sources.</td></tr>
+<tr><td><strong>MTIE</strong></td><td><strong>Machine Timer Interrupt Enable.</strong> The bit in the <code>mie</code> CSR that enables machine-timer interrupts.</td></tr>
+<tr><td><strong>PC</strong></td><td><strong>Program Counter.</strong> The address associated with the instruction currently being executed. RISC-V has no ordinary instruction that directly reads a dedicated PC register; PC-relative operations such as <code>AUIPC</code> use it implicitly. See <a href="#auipc--add-upper-immediate-to-pc"><code>AUIPC</code></a>.</td></tr>
+<tr><td><strong>PIC</strong></td><td><strong>Position-Independent Code.</strong> Code that can execute correctly after being loaded at different addresses, normally using PC-relative addressing and linker-managed tables.</td></tr>
+<tr><td><strong>PLT</strong></td><td><strong>Procedure Linkage Table.</strong> Linker-generated machinery used by some ELF environments to resolve calls to externally defined functions.</td></tr>
+<tr><td><strong>psABI</strong></td><td><strong>Processor-Specific Application Binary Interface.</strong> The architecture-specific portion of an ABI, including RISC-V calling conventions, ELF relocations, and object-file rules.</td></tr>
+<tr><td><strong>RISC</strong></td><td><strong>Reduced Instruction Set Computer.</strong> A processor design tradition favoring regular instruction encodings and explicit load/store operations.</td></tr>
+<tr><td><strong>RV32 / RV64</strong></td><td>RISC-V ISA families with 32- or 64-bit integer registers respectively. A suffix names included ISA components: for example, RV64I is the 64-bit base integer ISA and RV64IMC additionally includes M and C.</td></tr>
+<tr><td><strong>RVWMO</strong></td><td><strong>RISC-V Weak Memory Ordering.</strong> The standard relaxed memory-consistency model used by RISC-V. See <a href="#fence--fencei--memory-ordering"><code>FENCE</code></a>.</td></tr>
+<tr><td><strong>SBI</strong></td><td><strong>Supervisor Binary Interface.</strong> The interface commonly used by a RISC-V supervisor operating system to request services from machine-mode firmware.</td></tr>
+<tr><td><strong>TLS</strong></td><td><strong>Thread-Local Storage.</strong> Per-thread data addressed using ABI- and linker-defined mechanisms; the <code>tp</code> register conventionally participates in locating it.</td></tr>
+<tr><td><strong>XLEN</strong></td><td><strong>Integer register width.</strong> The number of bits in an integer register for the current ISA: normally 32 in RV32 or 64 in RV64.</td></tr>
+</tbody>
+</table>
+</div>
+<h2 id="common-non-acronym-terms"><a class="header" href="#common-non-acronym-terms">Common non-acronym terms</a></h2>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th>Term</th><th>Meaning</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>hart</strong></td><td>A <strong>hardware thread</strong>: one independently executing RISC-V instruction stream with its own architectural state.</td></tr>
+<tr><td><strong>immediate</strong></td><td>A constant encoded as part of an instruction rather than read from a register or memory.</td></tr>
+<tr><td><strong>pseudoinstruction</strong></td><td>Assembler syntax that expands into one or more real instructions. See <a href="#pseudoinstructions">pseudoinstructions</a>.</td></tr>
+<tr><td><strong>relocation</strong></td><td>Metadata asking the assembler or linker to fill in or adjust a value once a symbol’s final address is known.</td></tr>
+</tbody>
+</table>
+</div>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="sources-and-further-reading"><a class="header" href="#sources-and-further-reading">Sources and further reading</a></h1>
 <h2 id="authoritative"><a class="header" href="#authoritative">Authoritative</a></h2>

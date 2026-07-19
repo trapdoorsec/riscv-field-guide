@@ -1,7 +1,9 @@
 # Summary
 
 - [RISC-V Field Guide](index.md)
-- [How to read an instruction page](using-this-book.md)
+- [How to read an instruction](using-this-book.md)
+- [About the RISC-V Field Guide](about-the-rvfg.md)
+- [Getting started with RISC-V programming](getting-started.md)
 - [Signedness and width guide](signedness.md)
 - [Registers and ABI names](registers.md)
 
@@ -64,5 +66,6 @@
 
 # Reference
 
+- [Glossary of acronyms and terms](glossary.md)
 - [Sources and further reading](sources.md)
 - [Instruction-page template](instructions/_template.md)
