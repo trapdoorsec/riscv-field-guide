@@ -194,6 +194,93 @@ table { width: 100%; }
   margin: 0;
 }
 
+/* ── Incantations ── */
+
+/* Keep entries in SUMMARY for generation, search, ordering and keyboard
+ * navigation, but expose the collection through its About page and custom UI. */
+#mdbook-sidebar .chapter-item:has(a[href*="incantations/0x"]),
+.sidebar-iframe-inner .chapter-item:has(a[href*="incantations/0x"]) {
+  display: none;
+}
+
+body:has(.incantation-marker) .nav-wrapper,
+body:has(.incantation-marker) .nav-wide-wrapper {
+  display: none;
+}
+
+.incantation-entry {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: calc(100vh - var(--menu-bar-height) - 50px);
+  padding: clamp(2rem, 5vh, 5rem) 0 1.5rem;
+}
+
+.incantation-entry h1 {
+  margin: 0;
+  text-align: center;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-size: clamp(1.8rem, 3vw, 2.6rem);
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: #a1a1aa;
+}
+
+.incantation-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 20rem;
+  padding: 3rem 1rem;
+}
+
+.incantation-stage pre {
+  min-width: min(28rem, 80vw);
+  margin: 0;
+  padding: 2rem 2.5rem;
+  border-color: rgba(56, 217, 235, 0.12);
+  background: rgba(12, 12, 13, 0.72);
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.28);
+  font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+  line-height: 1.75;
+}
+
+.incantation-nav {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 3rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(56, 217, 235, 0.1);
+  font-family: var(--mono-font);
+  font-size: clamp(1.2rem, calc(0.25vw + 0.8rem), 1.6rem);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.incantation-nav > :first-child {
+  justify-self: start;
+}
+
+.incantation-nav > :last-child {
+  justify-self: end;
+}
+
+.incantation-nav a {
+  color: #38d9eb;
+}
+
+.incantation-nav-position,
+.incantation-nav-disabled {
+  color: #71717a;
+}
+
+.incantation-intro + p {
+  margin-top: 2rem;
+}
+
 @media (max-width: 600px) {
   .navy #mdbook-body-container::before {
     background-size: auto, auto, 620px 620px;
@@ -205,6 +292,17 @@ table { width: 100%; }
   #big-search {
     font-size: 1rem;
     padding: 14px 16px 14px 46px;
+  }
+
+  .incantation-entry {
+    min-height: calc(100vh - var(--menu-bar-height) - 25px);
+    padding-top: 2rem;
+  }
+
+  .incantation-stage pre {
+    min-width: 0;
+    width: 100%;
+    padding: 1.5rem;
   }
 }
 

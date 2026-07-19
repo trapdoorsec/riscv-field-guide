@@ -1,4 +1,22 @@
 (function () {
+  var incantationNav = document.querySelector('.incantation-nav');
+  if (incantationNav) {
+    document.addEventListener('keydown', function (event) {
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey ||
+          /^(?:input|select|textarea)$/i.test(event.target.nodeName)) return;
+
+      var direction = event.key === 'ArrowLeft' ? 'prev' :
+        event.key === 'ArrowRight' ? 'next' : null;
+      if (!direction) return;
+
+      event.preventDefault();
+      event.stopImmediatePropagation();
+
+      var destination = incantationNav.querySelector('a[rel="' + direction + '"]');
+      if (destination) window.location.assign(destination.href);
+    }, true);
+  }
+
   var bigSearch = document.getElementById('big-search');
   var landingForm = document.getElementById('landing-search-form');
   if (!bigSearch || !landingForm) return;

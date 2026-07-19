@@ -29,7 +29,7 @@
         <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
 
         <!-- Custom theme stylesheets -->
-        <link rel="stylesheet" href="theme/riscv-785e7ddc.css">
+        <link rel="stylesheet" href="theme/riscv-71deb626.css">
 
 
         <!-- Provide site root and default themes to javascript -->
@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "navy";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-6b1c0ef1.js";
+            window.path_to_searchindex_js = "searchindex-5f13d8e9.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-5c60a0f5.js"></script>
+        <script src="toc-ad188195.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -312,6 +312,121 @@ sltiu rd, rs, 1         # rd = (rs &lt; 1) — equivalent to seqz (rs == 0)
 </tbody>
 </table>
 </div>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="incantations"><a class="header" href="#incantations">Incantations</a></h1>
+<div class="incantation-marker incantation-intro"></div>
+
+<p>This section is inspired by the puzzle-box spirit of xorpd’s brilliant <a href="https://www.xorpd.net/pages/xchg_rax/snip_00.html"><em>xchg rax,rax</em></a>.</p>
+<p>This is not a translation or reproduction of that book. However, you will find a similar collection of RISC-V curiosities.</p>
+<p>These examples are here to develop intuition about <code>x0</code>, sign extension,
+instruction aliases, exceptional arithmetic results, relocations, compressed
+encodings, and other corners of the ISA. Some are useful idioms. Others are
+deliberately perverse ways to reach an ordinary result.</p>
+<p>I like that xorpd’s approach is to provide you the examples without explanation. This forces the curious to explore, and therefore learn, far better than documentation can teach.</p>
+<blockquote>
+<p>Unless an entry says otherwise, examples operate on integer registers and use
+GNU-compatible assembler syntax. Instruction size refers to the final encoding,
+not the number of source-code characters. Linker relaxation and the C extension
+can make a familiar pseudoinstruction smaller than its canonical expansion.</p>
+</blockquote>
+<p><a href="#incantation-i">Explore the incantations</a>.</p>
+<nav class="incantation-nav" aria-label="Incantation navigation">
+  <span class="incantation-nav-disabled" aria-disabled="true">← Previous</span>
+  <span class="incantation-nav-position">Introduction</span>
+  <a href="#incantation-i" rel="next">Next →</a>
+</nav>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="incantation-i"><a href="#incantation-i" class="header">Incantation: I</a></h1>
+<div class="incantation-marker incantation-entry">
+  
+<h1>Incantation: I</h1>
+
+  
+<div class="incantation-stage">
+    
+<pre><code class="language-asm">andi    t0, x0, -1
+sltu    t0, t1, t1
+lui     t0, 0
+mulhsu  t0, x0, t1
+rem     t0, x0, t1</code></pre>
+
+  </div>
+
+  <nav class="incantation-nav" aria-label="Incantation navigation">
+    <a href="#incantations" rel="prev">← Previous</a>
+    <span class="incantation-nav-position">0x00</span>
+    <a href="#incantation-ii" rel="next">Next →</a>
+  </nav>
+</div>
+
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="incantation-ii"><a href="#incantation-ii" class="header">Incantation: II</a></h1>
+<div class="incantation-marker incantation-entry">
+  
+<h1>Incantation: II</h1>
+
+  
+<div class="incantation-stage">
+    
+<pre><code class="language-asm">beq    x0, x0, target
+bge    x0, x0, target
+bgeu   x0, x0, target
+jal    x0, target
+j      target
+</code></pre>
+
+  </div>
+
+  <nav class="incantation-nav" aria-label="Incantation navigation">
+    <a href="#incantation-i" rel="prev">← Previous</a>
+    <span class="incantation-nav-position">0x01</span>
+    <a href="#incantation-iii" rel="next">Next →</a>
+  </nav>
+</div>
+
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="incantation-iii"><a href="#incantation-iii" class="header">Incantation: III</a></h1>
+<div class="incantation-marker incantation-entry">
+  
+<h1>Incantation: III</h1>
+
+  
+<div class="incantation-stage">
+    
+<pre><code class="language-asm">div    t0, t1, x0
+divu   t0, t1, x0
+rem    t0, t1, x0
+remu   t0, t1, x0</code></pre>
+
+  </div>
+
+  <nav class="incantation-nav" aria-label="Incantation navigation">
+    <a href="#incantation-ii" rel="prev">← Previous</a>
+    <span class="incantation-nav-position">0x02</span>
+    <a href="#incantation-iv" rel="next">Next →</a>
+  </nav>
+</div>
+
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="incantation-iv"><a href="#incantation-iv" class="header">Incantation: IV</a></h1>
+<div class="incantation-marker incantation-entry">
+  
+<h1>Incantation: IV</h1>
+
+  
+<div class="incantation-stage">
+    
+<pre><code class="language-asm">auipc  t0, 0</code></pre>
+
+  </div>
+
+  <nav class="incantation-nav" aria-label="Incantation navigation">
+    <a href="#incantation-iii" rel="prev">← Previous</a>
+    <span class="incantation-nav-position">0x03</span>
+    <span class="incantation-nav-disabled" aria-disabled="true">Next →</span>
+  </nav>
+</div>
+
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="arithmetic"><a class="header" href="#arithmetic">Arithmetic</a></h1>
 <p>RISC-V integer arithmetic is normally three-operand and does not update a flags register. Use explicit branches or set-less-than instructions for comparisons.</p>
@@ -628,6 +743,41 @@ needed, emitting <code>div</code> followed by <code>rem</code> with the same sou
 supporting implementation to fuse them into one divide operation. The quotient
 destination must not overwrite either source before <code>rem</code> reads it.</p>
 <p>Related: <a href="#w--rv64-word-operations"><code>*W</code> — RV64 word operations</a>, <a href="#sub--subtract"><code>SUB</code></a>.</p>
+<div style="break-before: page; page-break-before: always;"></div>
+<h1 id="compressed-integer-forms-c-extension"><a class="header" href="#compressed-integer-forms-c-extension">Compressed integer forms (C extension)</a></h1>
+<p>The C extension adds 16-bit encodings for common operations. These are not
+smaller registers or different arithmetic semantics: after decoding, they have
+the same architectural effect as their 32-bit counterparts. Mixing 16- and
+32-bit instructions improves code density.</p>
+<p>Assemblers normally choose compressed encodings automatically when the target
+architecture includes C and the operands satisfy an encoding’s restrictions.
+Explicit <code>c.*</code> mnemonics are useful when the exact encoding matters.</p>
+<h2 id="zero-producing-forms"><a class="header" href="#zero-producing-forms">Zero-producing forms</a></h2>
+<pre><code class="language-text">c.li  rd, 0          # rd ≠ x0; load signed six-bit immediate zero
+c.sub rd', rs2'      # rd' = rd' - rs2'
+c.xor rd', rs2'      # rd' = rd' XOR rs2'
+</code></pre>
+<p><code>c.li rd, 0</code> directly provides a 16-bit way to zero any integer register other
+than <code>x0</code>. <code>c.sub rd', rd'</code> and <code>c.xor rd', rd'</code> zero a register by combining it
+with itself. The primes mean the compact register set <code>x8</code>–<code>x15</code>.</p>
+<pre><code class="language-asm">c.li  t0, 0
+c.sub a0, a0
+c.xor a1, a1
+</code></pre>
+<p>The base spellings may assemble to the same encodings:</p>
+<pre><code class="language-asm">li  t0, 0            # may become c.li t0, 0
+sub a0, a0, a0       # may become c.sub a0, a0
+xor a1, a1, a1       # may become c.xor a1, a1
+</code></pre>
+<p><code>c.mv rd, x0</code> is not another zeroing form: the encoding requires a nonzero
+source register, and the all-zero source field is reserved.</p>
+<h2 id="availability-and-inspection"><a class="header" href="#availability-and-inspection">Availability and inspection</a></h2>
+<p>Enable C in the target ISA, for example with <code>-march=rv64imc</code>. Operand and
+register restrictions differ between compressed instructions, so do not assume
+every base instruction can shrink. Use <code>objdump -dr -M no-aliases</code> when exact
+instruction width matters.</p>
+<p>Related: <a href="#pseudoinstructions">Pseudoinstructions</a>,
+<a href="#addi--add-immediate"><code>ADDI</code></a>, <a href="#sub--subtract"><code>SUB</code></a>, <a href="#xor--xori"><code>XOR</code></a>.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="bitwise-operations-and-shifts"><a class="header" href="#bitwise-operations-and-shifts">Bitwise operations and shifts</a></h1>
 <p>Register forms take two sources. Immediate forms use a suffix <code>i</code>. Shifts use only the low five bits of the shift amount in RV32 and low six in RV64.</p>
@@ -1513,7 +1663,7 @@ addi sp, sp, 8
         <script src="book-609e4cb8.js"></script>
 
         <!-- Custom JS scripts -->
-        <script src="theme/landing-search-0b8a0fb7.js"></script>
+        <script src="theme/landing-search-9e9f91d4.js"></script>
 
         <script>
         window.addEventListener('load', function() {

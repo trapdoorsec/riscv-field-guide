@@ -5,6 +5,14 @@
 - [Signedness and width guide](signedness.md)
 - [Registers and ABI names](registers.md)
 
+# Incantations
+
+- [About the incantations](incantations/index.md)
+- [Incantation: I](incantations/0x00.md)
+- [Incantation: II](incantations/0x01.md)
+- [Incantation: III](incantations/0x02.md)
+- [Incantation: IV](incantations/0x03.md)
+
 # Base integer instructions
 
 - [Arithmetic](instructions/arithmetic.md)
@@ -14,6 +22,7 @@
   - [`SLT`, `SLTI`, `SLTU`, `SLTIU` — set less than](instructions/slt.md)
   - [`*W` — RV64 word operations](instructions/word.md)
 - [Multiplication and division (M extension)](instructions/mul-div.md)
+- [Compressed integer forms (C extension)](instructions/compressed.md)
 - [Bitwise and shifts](instructions/bitwise.md)
   - [`AND` / `ANDI`](instructions/and.md)
   - [`OR` / `ORI`](instructions/or.md)
