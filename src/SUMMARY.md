@@ -2,7 +2,6 @@
 
 - [RISC-V Field Guide](index.md)
 - [How to read an instruction page](using-this-book.md)
-- [Choose an instruction](choose-an-instruction.md)
 - [Signedness and width guide](signedness.md)
 - [Registers and ABI names](registers.md)
 

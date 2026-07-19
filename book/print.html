@@ -37,10 +37,10 @@
             const path_to_root = "";
             const default_light_theme = "navy";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a5373d8b.js";
+            window.path_to_searchindex_js = "searchindex-6b1c0ef1.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-0feeddca.js"></script>
+        <script src="toc-5c60a0f5.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -225,130 +225,6 @@ add         rd,          rs1,     rs2
 </ul>
 <h2 id="a-word-on-pseudoinstructions"><a class="header" href="#a-word-on-pseudoinstructions">A word on pseudoinstructions</a></h2>
 <p>The assembler instruction <code>mv a0, a1</code> is convenient syntax, not a distinct machine instruction. It normally becomes <code>addi a0, a1, 0</code>. Search results include pseudoinstructions because programmers encounter both forms.</p>
-<div style="break-before: page; page-break-before: always;"></div>
-<h1 id="choose-an-instruction"><a class="header" href="#choose-an-instruction">Choose an instruction</a></h1>
-<p>Start with the result you need, then decide whether the operands are constants,
-registers, memory values, or addresses. Pseudoinstructions such as <code>li</code>, <code>la</code>,
-and <code>call</code> are usually the clearest choice; the assembler and linker can select
-the required instruction sequence and relocations.</p>
-<h2 id="load-an-integer-constant"><a class="header" href="#load-an-integer-constant">Load an integer constant</a></h2>
-<ul>
-<li>If the value fits a signed 12-bit immediate (-2048 through 2047), use
-<code>li rd, value</code>. It can expand to <code>addi rd, x0, value</code>.</li>
-<li>For any other integer constant, still use <code>li</code> unless the exact sequence
-matters. The assembler may emit <code>lui</code> plus one or more arithmetic or shift
-instructions.</li>
-<li>Use <a href="#lui--load-upper-immediate"><code>LUI</code></a> and
-<a href="#addi--add-immediate"><code>ADDI</code></a> directly when writing relocation-aware code or
-deliberately controlling the sequence.</li>
-</ul>
-<pre><code class="language-asm">li t0, 37
-li t1, 0x12345678
-</code></pre>
-<p>On RV64, constructing some 64-bit values takes more than two instructions.
-Inspect the emitted code rather than assuming a particular <code>li</code> expansion.</p>
-<h2 id="compare-two-values"><a class="header" href="#compare-two-values">Compare two values</a></h2>
-<p>RISC-V has no condition-code register: choose an instruction according to how
-the comparison result will be used.</p>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Needed result</th><th>Signed comparison</th><th>Unsigned comparison</th></tr>
-</thead>
-<tbody>
-<tr><td>branch if equal/not equal</td><td><code>beq</code>, <code>bne</code></td><td><code>beq</code>, <code>bne</code></td></tr>
-<tr><td>branch if ordered</td><td><code>blt</code>, <code>bge</code></td><td><code>bltu</code>, <code>bgeu</code></td></tr>
-<tr><td>write 0 or 1</td><td><code>slt</code>, <code>slti</code></td><td><code>sltu</code>, <code>sltiu</code></td></tr>
-</tbody>
-</table>
-</div>
-<p>The assembler also accepts convenient forms such as <code>bgt</code>, <code>ble</code>, <code>seqz</code>,
-<code>snez</code>, and <code>sgtz</code>, then rewrites them using base instructions. See
-<a href="#beq--bne"><code>BEQ</code> / <code>BNE</code></a>,
-<a href="#blt-bge-bltu-bgeu">ordered branches</a>, and
-<a href="#slt-slti-sltu-sltiu--set-less-than"><code>SLT</code></a>.</p>
-<pre><code class="language-asm">blt  a0, a1, smaller       # branch using a signed comparison
-sltu t0, a0, a1            # t0 = (a0 &lt; a1), treating both as unsigned
-</code></pre>
-<h2 id="extend-a-value"><a class="header" href="#extend-a-value">Extend a value</a></h2>
-<p>If the value is being read from memory, choose a load with the desired
-extension. <code>lb</code>, <code>lh</code>, and <code>lw</code> sign-extend; <code>lbu</code>, <code>lhu</code>, and RV64 <code>lwu</code>
-zero-extend. <code>ld</code> reads a full 64-bit value on RV64. See
-<a href="#lb-lh-lw-ld--loads">loads</a>.</p>
-<p>For a value already in a register:</p>
-<ul>
-<li><code>andi rd, rs, 0xff</code> zero-extends a byte.</li>
-<li>Shift left and then arithmetic-shift right to sign-extend a byte or halfword.</li>
-<li>Shift left and then logical-shift right to zero-extend a halfword, or a word
-on RV64.</li>
-<li>On RV64, <code>addiw rd, rs, 0</code> sign-extends the low 32 bits; the <code>sext.w</code>
-pseudoinstruction expresses the same operation.</li>
-<li>If the relevant standard extension is available, use its <code>sext.*</code>, <code>zext.*</code>,
-or related operation instead of a multi-instruction base sequence.</li>
-</ul>
-<h2 id="multiply-or-divide-by-a-power-of-two"><a class="header" href="#multiply-or-divide-by-a-power-of-two">Multiply or divide by a power of two</a></h2>
-<p>Use a <a href="#sll--slli--shift-left-logical">left shift</a> to multiply an integer by a power of
-two. Use a logical right shift for unsigned division, or an arithmetic right
-shift when the required signed rounding behavior permits it.</p>
-<pre><code class="language-asm">slli t0, a0, 3             # multiply by 8, modulo XLEN
-srli t1, a1, 4             # unsigned divide by 16
-</code></pre>
-<p>An arithmetic right shift rounds a negative value toward negative infinity,
-while signed integer division rounds toward zero. Extra adjustment is required
-when that difference matters.</p>
-<h2 id="test-or-change-a-bit"><a class="header" href="#test-or-change-a-bit">Test or change a bit</a></h2>
-<ul>
-<li>To test a low bit whose one-bit mask fits an <code>ANDI</code> immediate, use <code>andi</code> and
-then branch on zero or nonzero.</li>
-<li>For another bit, construct the mask with <code>li</code> and use <code>and</code>.</li>
-<li>With the B extension, bit extract, set, clear, and invert instructions can
-avoid a separate mask.</li>
-</ul>
-<pre><code class="language-asm">andi t0, a0, 0x20
-bnez t0, bit_is_set
-</code></pre>
-<p>Do not assume every 12-bit-looking hexadecimal mask is accepted as a positive
-<code>ANDI</code> immediate: instruction immediates are sign-extended. See
-<a href="#and--andi"><code>AND</code> / <code>ANDI</code></a>.</p>
-<h2 id="get-an-address"><a class="header" href="#get-an-address">Get an address</a></h2>
-<ul>
-<li>Use <code>la rd, symbol</code> for the address of a symbol. Its expansion depends on the
-code model, position independence, symbol binding, and relocations.</li>
-<li>Use <code>lla rd, symbol</code> when you specifically need a local, PC-relative address
-and your assembler supports that pseudoinstruction.</li>
-<li>Use <code>auipc</code> directly when implementing a PC-relative sequence whose paired
-relocation and following instruction you control.</li>
-<li>Use <code>addi rd, base, offset</code> for a small byte offset from an address already in
-a register.</li>
-</ul>
-<p>See <a href="#address-construction">address construction</a> and
-<a href="#auipc--add-upper-immediate-to-pc"><code>AUIPC</code></a>. Prefer a symbol pseudoinstruction over
-hand-calculating an address: the linker must be able to adjust and sometimes
-relax the sequence.</p>
-<h2 id="call-jump-or-return"><a class="header" href="#call-jump-or-return">Call, jump, or return</a></h2>
-<div class="table-wrapper">
-<table>
-<thead>
-<tr><th>Intent</th><th>Usual spelling</th><th>Underlying mechanism</th></tr>
-</thead>
-<tbody>
-<tr><td>call a symbol</td><td><code>call symbol</code></td><td>relocation-aware <code>jal</code> or <code>auipc</code>/<code>jalr</code> sequence</td></tr>
-<tr><td>call through a register</td><td><code>jalr ra, 0(rs)</code></td><td>indirect jump and link</td></tr>
-<tr><td>nearby direct call</td><td><code>jal ra, label</code></td><td>PC-relative jump and link</td></tr>
-<tr><td>unconditional jump</td><td><code>j label</code></td><td><code>jal x0, label</code></td></tr>
-<tr><td>indirect jump</td><td><code>jr rs</code></td><td><code>jalr x0, 0(rs)</code></td></tr>
-<tr><td>return</td><td><code>ret</code></td><td><code>jalr x0, 0(ra)</code></td></tr>
-</tbody>
-</table>
-</div>
-<p>Use <code>call</code> for an ordinary function call so the assembler and linker can handle
-range and relocation details. Use <a href="#jal--jalr"><code>JAL</code> / <code>JALR</code></a>
-directly when the destination and link-register behavior are intentional.</p>
-<h2 id="check-the-result"><a class="header" href="#check-the-result">Check the result</a></h2>
-<p>Pseudoinstruction expansion can vary with the operands, target architecture,
-code model, and linker relaxation. When instruction count or exact encoding
-matters, disassemble the linked program (for example with <code>objdump -dr</code>) rather
-than relying on a typical expansion.</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <h1 id="signedness-and-width-guide"><a class="header" href="#signedness-and-width-guide">Signedness and width guide</a></h1>
 <p>RISC-V does not consistently encode signedness in mnemonics. Some operations have separate signed and unsigned forms; others use the same instruction regardless of interpretation. This page is a quick-reference for which is which.</p>
