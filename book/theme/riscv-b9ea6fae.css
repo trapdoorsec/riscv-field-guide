@@ -12,6 +12,41 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* A fast, progressive cross-page transition. The slight contraction and
+ * expansion reads like the page briefly receding into the background glyphs. */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: arcane-page-out 140ms ease-in both;
+}
+
+::view-transition-new(root) {
+  animation: arcane-page-in 220ms ease-out both;
+}
+
+@keyframes arcane-page-out {
+  to {
+    opacity: 0;
+    transform: scale(0.992);
+  }
+}
+
+@keyframes arcane-page-in {
+  from {
+    opacity: 0;
+    transform: scale(1.008);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
+  }
+}
+
 .navy {
   --bg: #0c0c0d;
   --fg: #d4d4d8;
