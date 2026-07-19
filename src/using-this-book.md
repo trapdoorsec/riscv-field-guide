@@ -16,7 +16,7 @@ add         rd,          rs1,     rs2
 - **M, A, F, D, C, B, V…**: optional standard extensions.
 - **Pseudo**: assembler syntax expanded into one or more real instructions.
 
-## A vital distinction
+## A word on pseudoinstructions
 
 The assembler instruction `mv a0, a1` is convenient syntax, not a distinct machine instruction. It normally becomes `addi a0, a1, 0`. Search results include pseudoinstructions because programmers encounter both forms.
 

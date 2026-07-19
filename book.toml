@@ -11,8 +11,8 @@ build-dir = "book"
 [output.html]
 default-theme = "navy"
 preferred-dark-theme = "navy"
-git-repository-url = "https://codeberg.org/akses/riscv-field-guide"
-edit-url-template = "https://codeberg.org/akses/edit/main/{path}"
+git-repository-url = "https://github.com/trapdoorsec/riscv-field-guide"
+edit-url-template = "https://github.com/trapdoorsec/riscv-field-guide/edit/main/{path}"
 additional-css = ["theme/riscv.css"]
 additional-js = ["theme/landing-search.js"]
 

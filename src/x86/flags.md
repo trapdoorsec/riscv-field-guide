@@ -17,8 +17,9 @@ This means there is no stale-flags hazard, but it also means carry, borrow and o
 
 ```asm
 add  t0, a0, a1
-[sltu](../instructions/slt.md) t1, t0, a0        # t1 = carry-out
+sltu t1, t0, a0        # t1 = carry-out
 ```
 
-Do not translate `cmp` in isolation. Translate the compare-plus-consumer operation.
+See [`SLT` / `SLTI` / `SLTU` / `SLTIU`](../instructions/slt.md).
 
+Do not translate `cmp` in isolation. Translate the compare-plus-consumer operation.

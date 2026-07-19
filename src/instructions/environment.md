@@ -1,4 +1,4 @@
 # Environment
 
-These instructions transfer control to the execution environment or debugger rather than performing ordinary application computation.
+These instructions transfer control to, or inspect the state of, the execution environment rather than performing ordinary application computation.
 
