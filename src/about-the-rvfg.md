@@ -1,6 +1,6 @@
 # About the RISC-V Field Guide
 
-Welcome to the RISC-V Field Guide, a searchable reference manual and learning resource for RISC-V assembly ~arcanists~ programmers. It is curated with love by me, Jim aka 'akses'. Thanks for spending your time here.
+Welcome to the RISC-V Field Guide, a searchable reference manual and learning resource for RISC-V assembly ~arcanists~ programmers. I basically designed it for my own needs but I hope this field guide is useful to others in some way. 
 
 My intent for this guide is to provide a reasonably accurate, useful, sampling of the important parts of the RISC-V specification, for programmers, by a programmer. I do not intend this site to be an authoritative source, however. 
 
@@ -32,3 +32,12 @@ Because I am but one human, and the breadth of knowledge hidden in the RISC-V sp
 
 As a result, some of the content could be misleading or outright incorrect. If you spot something, please let me know via a GH issue and I promise I will do my best to address it.
 
+## About the curator
+
+Hi, I'm Jim. I've been programming professionally since the late 90s, and am currently working in cybersecurity risk management for a large tech company where I spend time worrying about the safety of other peoples data. In my spare time I am an independent security researcher working on kernels and vulnerabilties in various things. 
+
+You can find me on socials and in other places under the pseudonym akses. 
+
+- [X.com](https://x.com/akses_0x00)
+- [Github.com](github.com/akses0)
+- [My website](https://trapdoorsec.com)

@@ -15,6 +15,6 @@
       <span class="landing-tag" data-search="call">call</span>
       <span class="landing-tag" data-search="zero extend">zero extend</span>
     </div>
-    <p class="landing-note">A searchable RISC-V assembly instruction reference &amp; x86 migration guide &mdash; <a href="using-this-book.html" class="landing-link">Using this book</a> | <a href="what-is-this.md" class="landing-link">About this book</a></p>
+    <p class="landing-note">A searchable RISC-V assembly <del>incantation</del> instruction reference for <del>arcanists</del> programmers | <a href="using-this-book.html" class="landing-link">Using this book</a> | <a href="about-the-rvfg.html" class="landing-link">About this book</a></p>
   </div>
 </div>
