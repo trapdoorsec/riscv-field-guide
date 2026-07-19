@@ -4,7 +4,7 @@
   <div class="ritual-brief">
     <p class="ritual-verse">Words wait in silence.<br>The kernel carries their voice.<br>Return without trace.</p>
     <p>Write an RV64 Linux program that prints <code>Hello, RISC-V!</code> followed by a newline, then exits successfully.</p>
-    <p class="ritual-hint">Begin at <code>_start</code>. Use only Linux <code>write</code> and <code>exit</code> system calls—no C library.</p>
+    <p class="ritual-hint">Begin at <code>_start</code>. Use only Linux <code>write</code> and <code>exit</code> system calls (i.e. no C library).</p>
   </div>
 
   <details class="ritual-solution">
