@@ -32,6 +32,41 @@ body {
   --searchbar-fg: #d4d4d8;
 }
 
+/*
+ * Low-contrast geometric field: circles, a five-pointed star and radial lines
+ * suggest an arcane diagram without placing a busy texture behind the text.
+ */
+.navy #mdbook-body-container {
+  isolation: isolate;
+  min-height: 100vh;
+}
+
+.navy #mdbook-body-container::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-color: #0c0c0d;
+  background-image:
+    radial-gradient(circle at 78% 12%, rgba(44, 48, 54, 0.09), transparent 30%),
+    radial-gradient(circle at 12% 82%, rgba(38, 42, 48, 0.08), transparent 28%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='880' height='880' viewBox='0 0 880 880'%3E%3Cg fill='none' stroke='%2323262b' stroke-width='1' opacity='.46'%3E%3Ccircle cx='440' cy='440' r='292'/%3E%3Ccircle cx='440' cy='440' r='218'/%3E%3Ccircle cx='440' cy='440' r='74'/%3E%3Cpath d='M440 116 622 691 145 344 735 344 258 691Z'/%3E%3Cpath d='M440 116V440M622 691 440 440M145 344 440 440M735 344 440 440M258 691 440 440' opacity='.58'/%3E%3Cpath d='M440 218 651 371 570 620H310L229 371Z'/%3E%3C/g%3E%3Cg fill='%23282b30' opacity='.42'%3E%3Ccircle cx='440' cy='116' r='3'/%3E%3Ccircle cx='622' cy='691' r='3'/%3E%3Ccircle cx='145' cy='344' r='3'/%3E%3Ccircle cx='735' cy='344' r='3'/%3E%3Ccircle cx='258' cy='691' r='3'/%3E%3C/g%3E%3C/svg%3E");
+  background-attachment: fixed;
+  background-position: center, center, center 72px;
+  background-repeat: no-repeat, no-repeat, repeat;
+  background-size: auto, auto, 880px 880px;
+}
+
+.navy .page-wrapper {
+  background-color: transparent;
+}
+
+.navy .sidebar {
+  background-color: rgba(17, 17, 19, 0.91);
+  backdrop-filter: blur(2px);
+}
+
 .content main { max-width: var(--content-max-width); }
 
 h1, h2, h3 {
@@ -160,11 +195,21 @@ table { width: 100%; }
 }
 
 @media (max-width: 600px) {
+  .navy #mdbook-body-container::before {
+    background-size: auto, auto, 620px 620px;
+  }
+
   .landing-title {
     font-size: 2rem;
   }
   #big-search {
     font-size: 1rem;
     padding: 14px 16px 14px 46px;
+  }
+}
+
+@media print {
+  .navy #mdbook-body-container::before {
+    display: none;
   }
 }
